@@ -13,7 +13,8 @@ var insert = function (albumName, user, file) {
                                   VALUES (@source, @data, @uploadedBy)`,
         function (err) { err && console.log('err', err); });
       const buffer = Buffer.from(JSON.stringify(file));
-      console.log('buffer', buffer);
+      console.log('buffer', buffer.byteLength);
+      return;
       request.addParameter('source', TYPES.NVarChar, albumName);
       request.addParameter('data', TYPES.Image, buffer);
       request.addParameter('uploadedBy', TYPES.NVarChar, user);

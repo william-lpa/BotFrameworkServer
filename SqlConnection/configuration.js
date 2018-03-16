@@ -6,7 +6,8 @@ var config =
         options:
             {
                 database: 'MaratonaBotFramework',
-                encrypt: true
+                encrypt: true,
+                rowCollectionOnRequestCompletion: true,
             }
     }
 

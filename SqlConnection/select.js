@@ -5,19 +5,14 @@ var Config = require('./configuration'),
 
 
 var select =
-  function queryDatabase(albumNames) {
+  function queryDatabase(albumNames, callbackSelect) {
     console.log('Reading rows from the Table...', `SELECT * from FileStorage where FileStorage.Source in ('${[albumNames].join()}')`);
     var array = [albumNames];
 
     var request = new Request(
-      `SELECT * from FileStorage where FileStorage.Source in ('${array.join()}')`
-    );
+      `SELECT top 3 * from FileStorage where FileStorage.Source in ('${array.join()}')`
+      , (error, rowCount, rows) => callbackSelect(rows));
 
-    request.on('row', function (columns) {
-      columns.forEach(function (column) {
-        console.log("%s\t%s", column.metadata.colName, column.value, JSON.stringify(column.value));
-      });
-    });
     connection.execSql(request);
   }
 
