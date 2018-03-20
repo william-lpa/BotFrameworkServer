@@ -18,15 +18,14 @@ router.get('/', function (req, resp, next) {
     });
     return resp.status(200).json({ files: files });
   };
-
+console.log('req',req.query.albumName);
   var retorno = sql.select(req.query.albumNames, callback);
 
 });
 
 router.post('/', function (req, resp, next) {
-  console.log(req.body);
-  return;
-  sql.insert('teste2', 'William', req.body);
+  const { body } = req;
+  sql.insert(body.albumName, body.user, body.file);
   return resp.status(200).json({ ok: 'ok' });
 });
 
